@@ -41,7 +41,6 @@ class ProductList(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(ProductList, self).get_context_data()
         context['categories'] = Category.objects.all()
-        context['no_category_post_count'] = Product.objects.filter(category=None).count()
         return context
 
 class ProductDetail(DetailView):

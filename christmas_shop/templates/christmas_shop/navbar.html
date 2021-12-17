@@ -1,3 +1,4 @@
+{% load socialaccount %}
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
     <div class="container px-4 px-lg-5">
@@ -14,8 +15,43 @@
                 <li class="nav-item"><a class="nav-link" href="{{ category.get_absolute_url }}">{{category}}</a></li>
                 {% endfor %}
                 <li class="nav-item"><a class="nav-link" href="/mypage/">My Page</a></li>
-                <li class="nav-item"><a class="nav-link" href="">Log In</a></li>
+                {% if user.is_authenticated %}
+                <li class="nav-item"><a role="button" class="nav-link" href="/authaccounts/logout/">
+                    {{user.username}}<br>Log out
+                {% else %}
+                <li class="nav-item"><a role="button" class="nav-link" data-toggle="modal" data-target="#loginModal">
+                Log In
+                    {% endif %}
+              </a>
+              </li>
             </ul>
         </div>
     </div>
 </nav>
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="loginModalLabel">Log In</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row">
+              <div class="col-md-6">
+                <a role="button" class="btn btn-outline-dark btn-block btn-sm" href="{% provider_login_url 'google' %}">
+                  <i class="fab fa-google"></i>&nbsp;&nbsp;Log in with Google</a>
+                <a role="button" class="btn btn-outline-dark btn-block btn-sm" href="/authaccounts/login/"><i class="fas fa-envelope"></i>&nbsp;&nbsp;Log in with E-mail</a>
+              </div>
+              <div class="col-md-6">
+                <a role="button" class="btn btn-outline-dark btn-block btn-sm" href="/authaccounts/signup/"><i class="fas fa-envelope"></i>&nbsp;&nbsp;Sign up with E-mail</a>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>

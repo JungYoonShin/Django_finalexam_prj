@@ -23,5 +23,6 @@ urlpatterns = [
     path('christmas_shop/', include('christmas_shop.urls')),
     path('', include('single_pages.urls')),
     path('markdownx/', include('markdownx.urls')),
+    path('authaccounts/', include('allauth.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) #서버IP/media/
