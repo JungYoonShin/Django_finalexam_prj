@@ -14,7 +14,9 @@ dist/
 downloads/
 eggs/
 venv/
+_media/
 .idea/
+migrations/
 .eggs/
 lib/
 lib64/
