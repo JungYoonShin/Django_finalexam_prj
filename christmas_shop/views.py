@@ -6,7 +6,7 @@ from .models import Product, Category
 # Create your views here.
 class ProductCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = Product
-    fields = ['title', 'hook_text', 'price', 'manufacturer', 'reserves', 'delivery_fee', 'image', 'category']
+    fields = ['title', 'hook_text', 'content', 'price', 'manufacturer', 'reserves', 'delivery_fee', 'image', 'category']
 
     def test_func(self):
         return self.request.user.is_superuser or self.request.user.is_staff
@@ -23,7 +23,7 @@ class ProductCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
             return redirect('/christmas_shop/')
 class ProductUpdate(LoginRequiredMixin, UpdateView):
     model = Product
-    fields = ['title', 'hook_text', 'price', 'manufacturer', 'reserves', 'delivery_fee', 'image', 'category']
+    fields = ['title', 'hook_text', 'content', 'price', 'manufacturer', 'reserves', 'delivery_fee', 'image', 'category']
     template_name = 'christmas_shop/product_update_form.html'
 
     def dispatch(self, request, *args, **kwargs):
@@ -34,23 +34,6 @@ class ProductUpdate(LoginRequiredMixin, UpdateView):
             raise PermissionDenied
 
 
-    def form_valid(self, form):
-        response = super(PostUpdate, self).form_valid(form)
-        self.object.tags.clear()
-        tags_str = self.request.POST.get('tags_str')
-        if tags_str:
-            tags_str = tags_str.strip()
-            tags_str = tags_str.replace(',', ';')
-            tags_list = tags_str.split(';')
-
-            for t in tags_list:
-                t = t.strip()
-                tag, is_tag_created = Tag.objects.get_or_create(name=t)
-                if is_tag_created:
-                    tag.slug = slugify(t, allow_unicode=True)
-                    tag.save()
-                self.object.tags.add(tag)
-        return response
 
 class ProductList(ListView):
     model = Product

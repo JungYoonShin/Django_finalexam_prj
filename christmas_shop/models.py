@@ -1,5 +1,6 @@
 from django.db import models
-
+from markdownx.models import MarkdownxField
+from markdownx.utils import markdown
 # Create your models here.
 class Category(models.Model):
     name = models.CharField(max_length=50, unique=True) #동일한 이름의 카테고리 금지
@@ -22,9 +23,11 @@ class Product(models.Model):
     delivery_fee = models.IntegerField() #배송비
     image = models.ImageField(upload_to='christmas_shop/images/%Y/%m/%d', blank=True)
     category = models.ForeignKey(Category, null=True, on_delete=models.SET_NULL)
-
+    content = MarkdownxField()
     #author
     def __str__(self):
         return f'[{self.pk}]{self.title}'
     def get_absolute_url(self):
         return f'/christmas_shop/{self.pk}/'
+    def get_content_markdown(self):
+        return markdown(self.content)

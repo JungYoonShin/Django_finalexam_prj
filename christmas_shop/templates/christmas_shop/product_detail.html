@@ -35,7 +35,7 @@
                         <p class="text-black-50">
                             {% if user.is_authenticated %}
                                 {% if user.is_superuser or user.is_staff %}
-                                    <a class="btn btn-info btn-sm" href="/christmas_shop/create_product/" role="button">
+                                    <a class="btn btn-info btn-sm" href="/christmas_shop/update_product/{{product.pk}}/" role="button">
                                         <i class="fas fa-pen"></i>&nbsp;&nbsp; Edit product
                                     </a>
                                 {% endif %}
@@ -57,8 +57,8 @@
                 </div>
                 <br><br><br>
                 <div class="row gx-0 justify-content-center">
-                    <div class="col-lg-6"><img class="img-fluid" src="{{product.image.url}}" alt="..." /></div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-5"><img class="img-fluid" src="{{product.image.url}}" alt="..." /></div>
+                    <div class="col-lg-7">
                         <div class="bg-warning text-center h-100 project">
                             <div class="d-flex h-100">
                                 <div class="project-text w-100 my-auto text-center text-lg-right">
@@ -66,6 +66,7 @@
                                     <br><br>
                                     <p class="mb-0">{{product.hook_text}}</p>
                                     <br>
+                                    <p class="mb-0">{{product.get_content_markdown | safe}}</p>
                                     <p class="mb-0">가격: {{product.price}}원</p>
                                     <p class="mb-0">제조사: {{product.manufacturer}}</p>
                                     <p class="mb-0">배송비: {{product.delivery_fee}}원</p>

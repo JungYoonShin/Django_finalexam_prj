@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load crispy_forms_tags %}
 <html lang="en">
     <head>
         <style>
@@ -14,7 +15,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>상품 수정 페이지</title>
+        <title>상품 등록 페이지</title>
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
@@ -31,15 +32,14 @@
         <!-- Projects-->
         <section class="projects-section bg-light" id="projects">
             <div class="container">
-        <h2>Products - 둘러보기</h2>
-        <div class="row">
+        <div class="col-lg-10">
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                <table>
-                    {{form}}
-                </table>
+                    {{ form | crispy }}
+                <br>
                 <button type="submit" class="btn btn-primary float-right">Submit</button>
             </form>
+            {{form.media}}
         </div>
     </div>
 
