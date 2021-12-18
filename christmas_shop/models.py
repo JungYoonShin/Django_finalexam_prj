@@ -34,7 +34,7 @@ class Product(models.Model):
         return markdown(self.content)
 
 class Comment(models.Model):
-    post = models.ForeignKey(Product, on_delete=models.CASCADE) #포스트 지우면 모든 댓글 지우기
+    product = models.ForeignKey(Product, on_delete=models.CASCADE) #포스트 지우면 모든 댓글 지우기
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -42,9 +42,8 @@ class Comment(models.Model):
 
     def __str__(self):
         return f'{self.author}::{self.content}'
-
     def get_absolute_url(self):
-        return f'{self.post.get_absolute_url()}#comment-{self.pk}'
+        return f'{self.product.get_absolute_url()}#comment-{self.pk}'
     def get_avatar_url(self):
         if self.author.socialaccount_set.exists():
             return self.author.socialaccount_set.first().get_avatar_url()
