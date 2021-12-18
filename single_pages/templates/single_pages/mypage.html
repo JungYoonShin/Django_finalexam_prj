@@ -57,12 +57,11 @@
                             </tr>
                             <tr>
                                 <td class="profile_title">💬 내가 쓴 댓글 💬</td>
+                                {% for reply in replies %}
                                 <td class="profile_content">
-
-                                </td>
+                                    <a href="{{reply.get_absolute_url}}">{{reply.content}}&nbsp;</a></td>
+                                {% endfor %}
                             </tr>
-
-
                         </table>
 
                         <hr>

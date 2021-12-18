@@ -1,10 +1,13 @@
 from django.shortcuts import render
 from christmas_shop.models import Product
-from christmas_shop.models import Product, Category
+from christmas_shop.models import Product,Comment
 # Create your views here.
 
 def mypage(request):
-    return render(request, 'single_pages/mypage.html')
+    search = request.GET.get('search')
+    writer = request.user
+    replies = Comment.objects.filter(author=writer).order_by('-created_at')
+    return render(request, 'single_pages/mypage.html', context={'replies': replies})
 def about_company(request):
     return render(request, 'single_pages/about_company.html')
 def landing(request):

@@ -45,14 +45,15 @@
                     </div>
                     <div class="col-lg-2">
                         <p class="text-black-50">
-                            {% if user.is_authenticated %}
-                                {% if user.is_superuser or user.is_staff %}
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                            <a class="btn btn-info btn-sm" href="/christmas_shop/create_product/" role="button">
-                                        &nbsp;&nbsp;Search
-                                    </a>
-                                {% endif %}
-                            {% endif %}
+
+                                    <div class="row">
+                                        <div class="col-lg-10">
+                                            <input class="form-control" id="search-input" type="text" placeholder="입력" aria-label="Enter search term..." aria-describedby="button-search" />
+                                        </div>
+                                        <div class="col-lg-2">
+                                            <a class="btn btn-info" style="width:50px; height:20px" onclick="searchPost();" role="button">Go!</a>
+                                        </div>
+                    </div>
                         </p>
                     </div>
                 </div>
@@ -112,6 +113,23 @@
         </div>
     </div>
     </section>
+            <script>
+    function searchPost(){
+        let searchValue = document.getElementById('search-input').value.trim();
+        if(searchValue.length > 1){
+            location.href = "/christmas_shop/search/" + searchValue + "/";
+        }
+        else{
+            alert('검색어(' + searchValue +')가 너무 짧습니다.');
+        }
+    };
+    document.getElementById('search-input').addEventListener('keyup', function(event)
+    {
+        if(event.key == 'Enter'){
+            searchPost();
+        }
+    });
+    </script>
 <!-- Comments section-->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
