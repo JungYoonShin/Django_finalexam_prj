@@ -4,10 +4,18 @@
     <head>
         <style>
         @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Mulish:ital,wght@1,700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Lobster&family=Mulish:ital,wght@1,700&family=Noto+Sans+KR:wght@300;400&family=Oooh+Baby&family=Pacifico&display=swap');
+        @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+        @import url('https://cdn.rawgit.com/moonspam/NanumSquare/master/nanumsquare.css');
+        @import url('https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap');
         nav, h1{
            font-family: 'Lobster', cursive;
         font-family: 'Mulish', sans-serif;
         }
+        .hi, p{
+        font-family: 'Oooh Baby', cursive;
+        }
+
         </style>
         <link href="{% static 'single_pages/css/list.css' %}" rel="stylesheet" type="text/css" media="screen">
          <link href="{% static 'christmas_shop/bootstrap/bootstrap.min.css' %}" rel="stylesheet" type="text/css" media="screen">
@@ -35,7 +43,6 @@
                     <div class="text-center">
                         <h1 class="mx-auto my-0 text-uppercase">Merry Christmas</h1>
                         <h2 class="text-white-50 mx-auto mt-2 mb-5">May every day shine like Christmas.<br>Make a wish, dear Santa.</h2>
-                        <a class="btn btn-primary" href="#about">Get Started</a>
                     </div>
                 </div>
             </div>
@@ -45,15 +52,14 @@
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-lg-8">
-                        <h2 class="text-white mb-4">Built with Bootstrap 5</h2>
+                        <h2 class="text-white mb-4">Dear Santa</h2>
                         <p class="text-white-50">
-                            Grayscale is a free Bootstrap theme created by Start Bootstrap. It can be yours right now, simply download the template on
-                            <a href="https://startbootstrap.com/theme/grayscale/">the preview page.</a>
-                            The theme is open source, and you can use it for any purpose, personal or commercial.
+                            안녕하세요. 크리스마스 소품 판매 회사 Dear Santa입니다.<br>
+                            지금 크리스마스 트리, 리스, 스노우볼을 판매 중입니다.<br>
+                            다양한 상품을 구경해보세요.
                         </p>
                     </div>
                 </div>
-                <img class="img-fluid" src="assets/img/ipad.png" alt="..." />
             </div>
         </section>
         <!-- Projects-->
@@ -64,15 +70,16 @@
             </div>
             <div class="item_list">
                 {% for product in recent_products %}
-                <div class="card">
+                <div class="card" style="height:510px">
                     <div class="img">
-                        <img class="img-fluid" src="{{product.image.url}}" alt="">
+                        <img style="height:280px;" src="{{product.image.url}}" alt="">
                     </div>
                     <div class="text">
-                        <h2>React</h2>
+                        <p class="hi" style="color:rgb(225,89,40); font-weight:bold; font-size:26px;">{{product.category}}</p>
+                        <h3>{{product.title}}</h3>
                         <p>{{product.hook_text}}</p>
-                        <p>{{product.price}}</p>
-                        <button style="background-color:orange;"><a class="text-decoration-none text-dark" style="font-size:13px;" href="{{product.get_absolute_url}}">&nbsp;구경하기-></a></button>
+                        <p>가격: {{product.price}}</p>
+                        <button style="background-color:rgb(225,89,40);"><a class="text-decoration-none" style="font-size:15px; color:white" href="{{product.get_absolute_url}}">&nbsp;구경하기</a></button>
                     </div>
                 </div>
                 {% endfor %}

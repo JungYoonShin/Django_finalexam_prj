@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load crispy_forms_tags %}
 <html lang="en">
     <head>
         <style>
@@ -14,7 +15,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>마이 페이지</title>
+        <title>댓글 수정 페이지</title>
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
@@ -26,58 +27,22 @@
     <body id="page-top">
     {% include 'christmas_shop/navbar.html' %}
         <section class="about-section text-center" id="about">
-            <div class="container px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5 justify-content-center">
-                    <div class="col-lg-8">
-                        <h2 class="text-white mb-4">My Page</h2>
-                    </div>
-                </div>
-            </div>
+
         </section>
         <!-- Projects-->
-    <div class="container">
-    <div style="margin-top: 5rem !important;">
-        <div class="col-12">
-
-            <div class="row justify-content-center">
-                <div class="card">
-                    <div class="card-header" style="padding-bottom:8px;">
-                        <strong style="font-size: 18px;"><i class="fas fa-user-cog"></i>&nbsp;&nbsp;내 정보</strong>
-                    </div>
-                    <div class="card-body">
-                        <table style="color:black; margin-left:10px;">
-                            <tr>
-                                <td class="profile_title">아이디</td>
-                                <td class="profile_content">&nbsp;{{ user.username }}</td>
-                            </tr>
-                            <tr>
-
-                                <td class="profile_title">이메일</td>
-                                <td class="profile_content">&nbsp;{{ user.email }}</td>
-                            </tr>
-                            <tr>
-                                <td class="profile_title">💬 내가 쓴 댓글 💬</td>
-                                {% for reply in replies %}
-                                <td class="profile_content">
-                                    <a href="{{reply.get_absolute_url}}">{{reply.content}}&nbsp;</a></td>
-                                {% endfor %}
-                            </tr>
-                        </table>
-
-                        <hr>
-                        <div style="text-align: center;">
-                        <!-- <div style="margin-left: 10px;"> -->
-                           </i>&nbsp;회원탈퇴</a> <br>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <section class="projects-section bg-light" id="projects">
+            <div class="container">
+        <div class="row">
+            <form method="post" id="comment-form" enctype="multipart/form-data">
+                {% csrf_token %}
+                <table>
+                    {{form | crispy}}
+                </table>
+                <br><button type="submit" class="btn btn-primary float-right">Submit</button>
+            </form>
+            {{form.media}}
         </div>
     </div>
-</div>
-
-    <br><br><br>
-    <br><br><br>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>

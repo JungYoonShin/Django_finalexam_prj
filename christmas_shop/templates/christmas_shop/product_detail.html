@@ -5,16 +5,24 @@
     <head>
         <style>
         @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Mulish:ital,wght@1,700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Lobster&family=Mulish:ital,wght@1,700&family=Noto+Sans+KR:wght@300;400&family=Oooh+Baby&family=Pacifico&display=swap');
+        @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
         nav{
            font-family: 'Lobster', cursive;
         font-family: 'Mulish', sans-serif;
+        }
+        .hi{
+        font-family: 'Oooh Baby', cursive;
+        }
+        .mb-0{
+         font-family: 'Nanum Gothic', sans-serif;
         }
         </style>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>상품 목록 페이지</title>
+        <title>상품 상세 페이지</title>
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
@@ -37,7 +45,7 @@
                             {% if user.is_authenticated %}
                                 {% if user.is_superuser or user.is_staff %}
                                     <a class="btn btn-info btn-sm" href="/christmas_shop/update_product/{{product.pk}}/" role="button">
-                                        <i class="fas fa-pen"></i>&nbsp;&nbsp; Edit product
+                                        <i class="fas fa-pen"></i>&nbsp;&nbsp;<span style="color:white;">Edit product</span>
                                     </a>
                                 {% endif %}
                             {% endif %}
@@ -58,15 +66,16 @@
                     </div>
                 </div>
                 <br><br><br>
-                <div class="row gx-0 justify-content-center">
+                <div class="row gx-0 justify-content-center"  style="background-color:#f3f3f5">
                     <div class="col-lg-5"><img class="img-fluid" src="{{product.image.url}}" alt="..." /></div>
                     <div class="col-lg-7">
-                        <div class="bg-warning text-center h-100 project">
+                        <div class="text-center h-100 project">
                             <div class="d-flex h-100">
                                 <div class="project-text w-100 my-auto text-center text-lg-right">
+                                     <p class="hi" style="color:rgb(225,89,40); font-weight:bold; font-size:26px;">{{product.category}}</p>
                                     <h4>{{product.title}}</h4>
-                                    <br><br>
-                                    <p class="mb-0">{{product.hook_text}}</p>
+                                    <br>
+                                    <p class="mb-2">{{product.hook_text}}</p>
                                     <br>
                                     <p class="mb-0">{{product.get_content_markdown | safe}}</p>
                                     <p class="mb-0">가격: {{product.price}}원</p>
@@ -102,9 +111,34 @@
                 <div class="d-flex" id="comment-{{comment.pk}}">
                     <div class="flex-shrink-0"><img class="rounded-circle" src="{{comment.get_avatar_url}}" alt="{{comment.author}}" width="60px" /></div>
                     <div class="ms-3">
-                        <div class="fw-bold">{{comment.author.username}}&nbsp&nbsp&nbsp
+                        <div class="fw-bold">
+                            {{comment.author.username}}&nbsp&nbsp&nbsp
                             <small class="text-muted">{{comment.created_at}}</small></div>
-                        <p>{{comment.content | linebreaks }}</p>
+                        <p>{{comment.content | linebreaks }}
+                            {% if user.is_authenticated and comment.author == user %}
+                                <a role="button" class="btn-sm float-right" style="width:120px; height:20px" id="comment-{{comment.pk}}-update-btn" href="/christmas_shop/update_comment/{{comment.pk}}/">edit</a>
+                            <a role="button" class="btn-sm float-right" id="comment-{{comment.pk}}-delete-modal-btn" data-toggle="modal" data-target="#deleteCommentModal-{{comment.pk}}">delete</a>    <div class="modal fade" id="deleteCommentModal-{{comment.pk}}" tabindex="-1" role="dialog" aria-labelledby="deleteCommentModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="deleteModalLabel">댓글을 정말 삭제하시겠습니까?</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span></button>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <del>{{comment | linebreaks}}</del>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                        <a role="button" class="btn btn-danger" href="/christmas_shop/delete_comment/{{comment.pk}}/">Delete</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>{% endif %}</p>
+                        {% if comment.created_at != comment.modified_at %}
+                            <p class="text-muted float-right"><small>Updated: {{comment.modified_at}}</small></p>
+                        {% endif %}
                     </div>
                 </div>
                 {% endfor %}
@@ -130,6 +164,7 @@
         }
     });
     </script>
+
 <!-- Comments section-->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>

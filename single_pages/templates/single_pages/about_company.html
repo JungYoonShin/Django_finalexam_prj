@@ -4,13 +4,14 @@
     <head>
         <style>
         @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Mulish:ital,wght@1,700&display=swap');
-
+        @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
         nav{
            font-family: 'Lobster', cursive;
         font-family: 'Mulish', sans-serif;
         }
 
         </style>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"> </script>
          <link href="{% static 'christmas_shop/bootstrap/bootstrap.min.css' %}" rel="stylesheet" type="text/css" media="screen">
          <script src="https://kit.fontawesome.com/96cee38240.js" crossorigin="anonymous"></script>
          <link href="https://fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
@@ -47,9 +48,10 @@
                     <div class="col-lg-8">
                         <h2 class="text-white mb-4">Dear Santa</h2>
                         <p class="text-white-50">
-                            Grayscale is a free Bootstrap theme created by Start Bootstrap. It can be yours right now, simply download the template on
-                            <a href="https://startbootstrap.com/theme/grayscale/">the preview page.</a>
-                            The theme is open source, and you can use it for any purpose, personal or commercial.
+                            안녕하세요. 크리스마스 소품 판매 회사 Dear Santa입니다.<br>
+                            저희는 프랑스에서 공수한 프리미엄 재료로 크리스마스 트리, 리스 그리고 스노우볼을 판매하고 있습니다.<br>
+                            일년에 단 하루인 크리스마스가 더욱 더 따듯하고 아름다울 수 있도록 최선을 다해 상품을 제공하겠습니다.<br>
+                            고객님들의 매일이 크리스마스처럼 빛나길:)
                         </p>
                     </div>
                 </div>
@@ -62,10 +64,10 @@
                 <br/>
                 <!-- Project One Row-->
                 <div class="row gx-0 mb-5 mb-lg-0 justify-content-center" >
-                    <div class="col-lg-6"><img data-toggle="modal" data-target="#portforlio1" class="img-fluid" src="{% static 'single_pages/assets/img/bg-masthead.jpg' %}" alt="..." /></div>
+                    <div class="col-lg-6"><img data-toggle="modal" data-target="#portforlio1" class="img-fluid" src="{% static 'single_pages/assets/img/graph.png' %}" alt="..." /></div>
                     <div class="col-lg-6">
                         <div class="bg-black text-center h-100 project">
-                            <div class="d-flex h-100" style="background-color:rgb(225,89,40)">
+                            <div class="d-flex h-100" style="background-color:rgb(225,95,40)">
                                 <div class="project-text w-100 my-auto text-center text-lg-left">
                                     <h4 class="text-white">상품 통계자료</h4>
                                     <p class="mb-0 text-white-50">저희 회사는 상품의 통계자료를 제공하고 있습니다. <br>카테고리별 상품 개수, 가격, 배송비 등을 확인하기 위해 왼쪽을 클릭하세요.</p>
@@ -82,7 +84,7 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel1">파이썬으로 통계업무 자동화하기</h5>
+        <h5 class="modal-title" id="exampleModalLabel1">상품 통계자료</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -90,47 +92,23 @@
       <div class="modal-body">
         <div class="row">
             <div class="col-lg-7">
-                <img class="card-img-top" src="{% static 'single_pages/images/pycon_sy_2017.png' %}">
+                <p>- 카테고리별 개수</p>
+                <canvas id="myChart2"></canvas>
+                <p>- 카테고리별 가격 분포</p>
+                <canvas id="myChart"></canvas>
             </div>
             <div class="col-lg-5">
-                <p>Python, Django로 통계업무 자동화하기 발표</p>
+                <p>카테고리별 상품 통계자료입니다.</p>
             </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        <button type="button" class="btn" style="background-color:rgb(225,89,40); color:white"data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
 </div>
 <!-- Modal -->
-<div class="modal fade" id="portforlio2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel2" aria-hidden="true">
-  <div class="modal-dialog modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel2">파이썬으로 통계업무 자동화하기</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-            <div class="col-lg-7">
-                 <img class="card-img-top" src="{% static 'single_pages/images/automation_python.png' %}">
-            </div>
-            <div class="col-lg-5">
-                <p>Python, Django로 통계업무 자동화하기 발표</p>
-            </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
 
 {% include 'christmas_shop/footer.html' %}
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -141,9 +119,42 @@
         <!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
         <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
         <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
-
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+     <script>
+          data = {
+            labels: ['Christmas tree', 'wreath', 'snow globe'],
+            datasets: [{label: 'average of price', data:[89000, 17000, 19000],
+            backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2'],
+            borderColor: ['rgba(255, 99, 132, 1.0)', 'rgba(54, 162, 235, 1.0)', 'rgba(255, 206, 86, 1.0)'],
+            borderWidth :1
+            }]
+          };
+          data2 = {
+            labels: ['Christmas tree', 'wreath', 'snow globe'],
+            datasets: [{label: 'average of price', data:[7, 7, 6],
+            backgroundColor: ['rgba(255, 99, 132, 0.2)', 'rgba(54, 162, 235, 0.2)', 'rgba(255, 206, 86, 0.2'],
+            borderColor: ['rgba(255, 99, 132, 1.0)', 'rgba(54, 162, 235, 1.0)', 'rgba(255, 206, 86, 1.0)'],
+            borderWidth :1
+            }]
+          };
+          var ctx = document.getElementById("myChart");
+          var myChart = new Chart(ctx, {
+            type:'bar',
+            data: data,
+            options:{
+              scales:{
+                yAxes:[{ticks: {beginAtZero:true}}]
+              }
+            }
+          });
+          var ctx2 = document.getElementById("myChart2");
+          var myChart2 = new Chart(ctx2, {
+            type:'doughnut',
+            data: data2,
+            options:{}
+          });
+        </script>
     </body>
 </html>

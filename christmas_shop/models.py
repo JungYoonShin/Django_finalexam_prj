@@ -49,3 +49,11 @@ class Comment(models.Model):
             return self.author.socialaccount_set.first().get_avatar_url()
         else:
             return 'https://doitdjango.com/avatar/id/430/19268e6e03eef497/svg/{self.author.email}/'
+class Company(models.Model):
+    name = models.CharField(max_length=30)
+    phone_number = models.CharField(max_length=30)
+    country = models.CharField(max_length=30)
+    address = models.CharField(max_length=30)
+
+    class Meta:
+        verbose_name_plural = 'Companies'

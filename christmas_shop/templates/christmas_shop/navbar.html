@@ -16,6 +16,11 @@
                 {% endfor %}
                 {% if user.is_authenticated %}
                 <li class="nav-item"><a class="nav-link" href="/mypage/">My Page</a></li>
+                 {% if user.socialaccount_set.all.0.get_avatar_url %}
+                  <img class="rounded-circle" width="30px" src="{{user.socialaccount_set.all.0.get_avatar_url}}" alt="">
+                {% else %}
+                  <img class="rounded-circle" width="30x" src="https://doitdjango.com/avatar/id/430/19268e6e03eef497/svg/{{user.email}}/" alt="">
+                {% endif %}
                 <li class="nav-item"><a role="button" class="nav-link" href="/authaccounts/logout/">
                     {{user.username}}<br>Log out
                 {% else %}
@@ -42,9 +47,10 @@
               <div class="col-md-6">
                 <a role="button" class="btn btn-outline-dark btn-block btn-sm" href="{% provider_login_url 'google' %}">
                   <i class="fab fa-google"></i>&nbsp;&nbsp;Log in with Google</a>
-                <a role="button" class="btn btn-outline-dark btn-block btn-sm" href="/authaccounts/login/"><i class="fas fa-envelope"></i>&nbsp;&nbsp;Log in with E-mail</a>
+                  <a role="button" class="btn btn-outline-dark btn-block btn-sm" href="{% provider_login_url 'naver' %}"><i class="fab fa-naver"></i>Log in with Naver</a>
               </div>
               <div class="col-md-6">
+                                  <a role="button" class="btn btn-outline-dark btn-block btn-sm" href="/authaccounts/login/"><i class="fas fa-envelope"></i>&nbsp;&nbsp;Log in with E-mail</a>
                 <a role="button" class="btn btn-outline-dark btn-block btn-sm" href="/authaccounts/signup/"><i class="fas fa-envelope"></i>&nbsp;&nbsp;Sign up with E-mail</a>
               </div>
             </div>

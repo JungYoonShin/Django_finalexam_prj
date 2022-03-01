@@ -6,7 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
 from .forms import CommentForm
-from .models import Product, Category
+from .models import Product, Category, Comment
 # Create your views here.
 
 class ProductCreate(LoginRequiredMixin, UserPassesTestMixin, CreateView):
@@ -98,3 +98,19 @@ class PostSearch(ProductList):
         q = self.kwargs['q']
         context['search_info'] = f'Search: {q} ({self.get_queryset().count()})'
         return context
+class CommentUpdate(LoginRequiredMixin, UpdateView):
+    model = Comment
+    form_class = CommentForm
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated and request.user == self.get_object().author:
+            return super(CommentUpdate, self).dispatch(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
+def delete_comment(request, pk):
+    comment = get_object_or_404(Comment, pk=pk)
+    product = comment.product
+    if request.user.is_authenticated and request.user == comment.author:
+        comment.delete()
+        return redirect(product.get_absolute_url())
+    else:
+        raise PermissionDenied

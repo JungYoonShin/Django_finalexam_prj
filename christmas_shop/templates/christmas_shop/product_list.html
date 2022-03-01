@@ -4,10 +4,18 @@
     <head>
         <style>
         @import url('https://fonts.googleapis.com/css2?family=Lobster&family=Mulish:ital,wght@1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Lobster&family=Mulish:ital,wght@1,700&family=Noto+Sans+KR:wght@300;400&family=Oooh+Baby&family=Pacifico&display=swap');
         nav{
-           font-family: 'Lobster', cursive;
+        font-family: 'Lobster', cursive;
         font-family: 'Mulish', sans-serif;
         }
+        h2, span{
+        font-family: 'Oooh Baby', cursive;
+        }
+                .hi, p{
+        font-family: 'Oooh Baby', cursive;
+        }
+
         </style>
          <link href="https://fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
         <meta charset="utf-8" />
@@ -29,11 +37,8 @@
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-lg-8">
-                        <h2 class="text-white mb-4">Built with Bootstrap 5</h2>
+                        <h2 class="text-white mb-4" style="font-size:50px;">{% if category %}{{category.name}}{%else%}ALL{% endif %}</h2>
                         <p class="text-white-50">
-                            Grayscale is a free Bootstrap theme created by Start Bootstrap. It can be yours right now, simply download the template on
-                            <a href="https://startbootstrap.com/theme/grayscale/">the preview page.</a>
-                            The theme is open source, and you can use it for any purpose, personal or commercial.
                         </p>
                     </div>
                 </div>
@@ -49,7 +54,7 @@
                             {% if user.is_authenticated %}
                                 {% if user.is_superuser or user.is_staff %}
                                     <a class="btn btn-info btn-sm" href="/christmas_shop/create_product/" role="button">
-                                        <i class="fas fa-pen"></i>&nbsp;&nbsp;New product
+                                        <i id="hi" class="fas fa-pen"></i>&nbsp;&nbsp;New product
                                     </a>
                                 {% endif %}
                             {% endif %}
@@ -68,7 +73,7 @@
                         </p>
                     </div>
                 </div>
-                <br><br><br><br><h2>Products - 둘러보기</h2>
+                <br><br><br><br>
         <div class="row">
             {% for p in product_list %}
             <div class="col-sm-3">
@@ -77,10 +82,11 @@
                         <img class="card-img-top embed-responsive-item" src="{{ p.image.url }}" alt="{{ p }}" />
                     </div>
                     <div class="card-body">
-                        <span class="badge bg-outline-dark float-rigth">미분류</span>
+                        <span style="color:rgb(225,89,40); font-weight:bold;">{{p.category}}</span>
                         <h1 class="card-title h4">{{ p.title }}</h1>
-                        <p class="text-muted">{{p.hook_text}}</p><p>{{p.price}}</p>
-                        <a class="btn btn-outline-dark" href="{{ p.get_absolute_url }}">구입하기 →</a>
+                        <p class="text-muted">{{p.hook_text}}</p>
+                        <p>가격: {{p.price}}</p>
+                        <a class="btn btn-outline-dark" href="{{ p.get_absolute_url }}" >구입하기 →</a>
                     </div>
                 <div class="card-footer">
                     <div class="small text-muted"></div>

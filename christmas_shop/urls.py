@@ -10,4 +10,6 @@ urlpatterns = [
     path('update_product/<int:pk>/', views.ProductUpdate.as_view()),
     path('<int:pk>/new_comment/', views.new_comment),
     path('search/<str:q>/', views.PostSearch.as_view()),
+    path('update_comment/<int:pk>/', views.CommentUpdate.as_view()),
+    path('delete_comment/<int:pk>/', views.delete_comment),
 ]
